@@ -14,5 +14,8 @@ jobs:
     - uses: engineerd/setup-kind@v0.4.0
     - name: Kind Test
       run: |
-        kubectl version
-        kubectl get pods --all-namespaces
+        kubectl apply -k envs/kind
+        kubectl wait pod -l app=hello-world --for=condition=Ready
+        OUTPUT=$(kubectl run -it --restart=Never health-checkers --rm --image=busybox --quiet -- wget -O - -q http://hello-world/env.txt)
+        echo "Output: $OUTPUT"
+        [[ "$OUTPUT" = "Hello world from kind" ]]
