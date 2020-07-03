@@ -1,0 +1,5 @@
+bases:
+- ../../base
+
+patches:
+- patch.yaml
