@@ -20,4 +20,7 @@ spec:
         command:
         - sh
         - -c
-        - echo 'hello world!' && sleep infinity
+        - echo "hello $DEPLOY_ENV world!" && sleep infinity
+        env:
+        - name: DEPLOY_ENV
+          value: 'somewhere'
