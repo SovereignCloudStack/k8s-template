@@ -11,12 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Minikube Setup
-      uses: opsgang/ga-setup-minikube@v0.1.1
-      with:
-        minikube-version: 1.10.1
-        k8s-version: 1.18.5
-    - name: Minikube test
+    - uses: engineerd/setup-kind@v0.4.0
+    - name: Kind Test
       run: |
         kubectl version
         kubectl get pods --all-namespaces
