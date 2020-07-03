@@ -15,12 +15,31 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: busybox
-        name: busybox
-        command:
-        - sh
-        - -c
-        - echo "hello $DEPLOY_ENV world!" && sleep infinity
-        env:
-        - name: DEPLOY_ENV
-          value: 'somewhere'
+      - image: nginx
+        name: nginx
+        volumeMounts:
+        - name: web-content-vol
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: web-content-vol
+        configMap:
+          name: web-content
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-content
+data:
+  env.txt: ''
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hello-world

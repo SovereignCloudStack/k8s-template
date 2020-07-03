@@ -1,12 +1,6 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: hello-world
-spec:
-  template:
-    spec:
-      containers:
-      - name: busybox
-        env:
-        - name: DEPLOY_ENV
-          value: 'minikube'
+  name: web-content
+data:
+  env.txt: 'Hello world from minikube'
