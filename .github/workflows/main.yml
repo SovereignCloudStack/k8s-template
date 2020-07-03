@@ -12,10 +12,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: engineerd/setup-kind@v0.4.0
-    - name: Kind Test
+    - name: Apply overlay
+      run: kubectl apply -k envs/kind
+    - name: Wait for pod to be Ready
+      run: kubectl wait pod -l app=hello-world --for=condition=Ready
+    - name: Check if service is working as expected
       run: |
-        kubectl apply -k envs/kind
-        kubectl wait pod -l app=hello-world --for=condition=Ready
         OUTPUT=$(kubectl run -it --restart=Never health-checkers --rm --image=busybox --quiet -- wget -O - -q http://hello-world/env.txt)
         echo "Output: $OUTPUT"
         [[ "$OUTPUT" = "Hello world from kind" ]]
