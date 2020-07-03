@@ -20,6 +20,10 @@ spec:
         volumeMounts:
         - name: web-content-vol
           mountPath: /usr/share/nginx/html
+        readinessProbe:
+          httpGet:
+            path: /env.txt
+            port: 80
       volumes:
       - name: web-content-vol
         configMap:
