@@ -15,7 +15,7 @@ jobs:
     - name: Apply overlay
       run: kubectl apply -k envs/kind
     - name: Wait for pod to be Ready
-      run: kubectl wait deployment hello-world --for=condition=Ready
+      run: kubectl wait deployment hello-world --for=condition=Available
     - name: Check if service is working as expected
       run: |
         OUTPUT=$(kubectl run -it --restart=Never health-check --rm --image=busybox --quiet -- wget -O - -q http://hello-world/env.txt)
