@@ -18,6 +18,6 @@ jobs:
       run: kubectl wait deployment hello-world --for=condition=Ready
     - name: Check if service is working as expected
       run: |
-        OUTPUT=$(kubectl run -it --restart=Never health-checkers --rm --image=busybox --quiet -- wget -O - -q http://hello-world/env.txt)
+        OUTPUT=$(kubectl run -it --restart=Never health-check --rm --image=busybox --quiet -- wget -O - -q http://hello-world/env.txt)
         echo "Output: $OUTPUT"
         [[ "$OUTPUT" = "Hello world from kind" ]]
