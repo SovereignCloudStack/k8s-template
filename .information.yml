@@ -1,0 +1,7 @@
+name_path: template
+name_title:
+- some application
+name_description: some applications
+appendix: |-
+  This is the template repository which does not contain any actual
+  workload application.
