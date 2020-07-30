@@ -3,7 +3,7 @@ name: Sync with generics repository
 
 on:
   schedule: 
-    - cron: "0 0 * * *"
+    - cron: "30 7 * * *"
   repository_dispatch:
     types: [sync-with-generics-repository]
 
