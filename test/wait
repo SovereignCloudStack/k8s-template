@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -ex
+
+kubectl wait deployment hello-world --for=condition=Available

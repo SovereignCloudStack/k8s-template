@@ -35,13 +35,10 @@ jobs:
       env:
         FLUX_FORWARD_NAMESPACE: flux
       run: fluxctl sync
-    - name: Wait for pod to be Ready
-      run: kubectl wait deployment hello-world --for=condition=Available
+    - name: Wait for service to be Ready
+      run: ./test/wait
     - name: Check if service is working as expected
-      run: |
-        OUTPUT=$(kubectl run -it --restart=Never health-check --rm --image=busybox --quiet -- wget -O - -q http://hello-world/env.txt)
-        echo "Output: $OUTPUT"
-        [[ "$OUTPUT" = "Hello world from kind" ]]
+      run: ./test/test
     - name: Fetch fluxcd logs
       if: ${{ always() }}
       run: kubectl logs -n flux deploy/flux
