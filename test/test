@@ -4,4 +4,4 @@ set -ex
 
 OUTPUT=$(kubectl run -it --restart=Never health-check --rm --image=busybox --quiet -- wget -O - -q http://hello-world/env.txt)
 echo "Output: $OUTPUT"
-[[ "$OUTPUT" = 'Hello world not from kind' ]]
+[[ "$OUTPUT" = 'Hello world from kind' ]]
