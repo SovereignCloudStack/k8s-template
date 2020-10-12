@@ -14,9 +14,6 @@ spec:
       labels:
         app: hello-world
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
       containers:
       - image: nginx
         name: nginx
