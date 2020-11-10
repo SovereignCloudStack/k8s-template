@@ -17,8 +17,19 @@ jobs:
       with:
         kubectl: 1.18.2
         kustomize: 3.5.5
-        command:
-          kustomize build envs/ci-testing | conftest test -p test/policy -
+        command: |
+          set -ex
+          policies=(
+            pod-security-policy/allow-privilege-escalation
+            pod-security-policy/apparmor
+            pod-security-policy/capabilities
+          )
+          conftest_args=''
+          for lib in ${policies[*]}
+          do
+            conftest_args="$contest_args --update https://raw.githubusercontent.com/open-policy-agent/gatekeeper-library/master/library/$lib/src.rego"
+          done
+          kustomize build envs/ci-testing | conftest test $conftest_args - || echo "::warning::conftest failed"
     - uses: engineerd/setup-kind@v0.4.0
       with:
         version: v0.8.1
