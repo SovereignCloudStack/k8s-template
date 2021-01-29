@@ -37,8 +37,6 @@ jobs:
         set -ex
         flux create source git repo --url=https://github.com/$GITHUB_REPOSITORY.git --branch=${GITHUB_REF#refs/heads/}
         flux create kustomization deployment --source=repo --path=envs/ci-testing --prune
-        flux reconcile source git repo
-        flux reconcile kustomization deployment
     - name: Wait for service to be Ready
       run: ./test/wait
     - name: Check if service is working as expected
