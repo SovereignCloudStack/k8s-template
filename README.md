@@ -17,6 +17,14 @@ In order to ensure that every component inside of SCS behaves as
 expected, there should be simple smoke tests.
 These tests are implemented using GitHub Actions/Workflows.
 
+## References
+
+| | |
+| --- | --- |
+| CI smoke test | ![Smoke test](https://github.com/SovereignCloudStack/k8s-template/workflows/CI/badge.svg) |
+| Project website | [SCS Community](https://scs.community/) |
+
+
 
 ## Further information
 

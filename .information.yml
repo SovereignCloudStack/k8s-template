@@ -5,3 +5,7 @@ name_description: some applications
 appendix: |-
   This is the template repository which does not contain any actual
   workload application.
+references:
+- type: Project website
+  name: SCS Community
+  href: https://scs.community/
