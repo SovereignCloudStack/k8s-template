@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: web-content
 data:
-  env.txt: 'Hello world from kind'
+  env.txt: 'Hello world from somewhere else'
