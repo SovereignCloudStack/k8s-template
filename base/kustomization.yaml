@@ -1,2 +1,4 @@
 resources:
 - hello_world.yaml
+
+namespace: default
