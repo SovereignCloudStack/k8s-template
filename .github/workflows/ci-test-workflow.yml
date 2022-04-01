@@ -22,7 +22,7 @@ jobs:
           set +e
           kustomize build envs/ci-testing | conftest test --update github.com/instrumenta/policies.git//kubernetes - -o json > result.json || echo "conftest failed!"
           set -e
-          cat result.json #| jq '.[0].failures[].msg' | xargs printf "::warning::%s\n"
+          cat result.json | jq '.[0].failures[].msg' | xargs printf "::warning::%s\n"
     - uses: engineerd/setup-kind@v0.5.0
       with:
         version: v0.8.1
@@ -35,7 +35,7 @@ jobs:
     - name: Setup GitRepository/Kustomization
       run: |
         set -ex
-        if test -n "${GITHUB_HEAD_REF#refs/heads/}"; then flux create source git repo --url=https://github.com/$GITHUB_REPOSITORY.git --branch=${GITHUB_HEAD_REF#refs/heads/}; else flux create source git repo --url=https://github.com/$GITHUB_REPOSITORY.git; fi
+        flux create source git repo --url=https://github.com/$GITHUB_REPOSITORY.git --branch=${GITHUB_REF_NAME}
         flux create kustomization deployment --source=repo --path=envs/ci-testing --prune
     - name: Wait for service to be Ready
       run: ./test/wait
